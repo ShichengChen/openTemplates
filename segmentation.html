@@ -1,0 +1,31 @@
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<crowd-form>
+  <crowd-semantic-segmentation
+    name="crowd-semantic-segmentation"
+    src="{{ task.input.taskObject | grant_read_access }}"
+    header="Please segment out all pedestrians."
+    labels="{{ task.input.labels | to_json | escape }}"
+
+
+    initial-value='{
+      "labelMappings": {{ task.input.taskInstancesRef}},
+      "src": "{{ task.input.taskMaskRef | grant_read_access }}"
+    }' 
+    
+		
+  >
+    <full-instructions header="Segmentation instructions">
+      <ol><li><strong>Read</strong> the task carefully and inspect the image.</li>
+      <li><strong>Read</strong> the options and review the examples provided to understand more about the labels.</li>
+      <li><strong>Choose</strong> the appropriate label that best suits an object and paint that object using the tools provided.</li></ol>
+    </full-instructions>
+    <short-instructions>
+      <h2><span style="color: rgb(0, 138, 0);">Good example</span></h2>
+      <p>Enter description to explain a correctly done segmentation</p>
+      <p><br></p><h2><span style="color: rgb(230, 0, 0);">Bad example</span></h2> 
+      <p>Enter description of an incorrectly done segmentation</p>
+    </short-instructions>
+  </crowd-semantic-segmentation>
+  <crowd-checkbox name="delete">delete this image</crowd-checkbox> 
+</crowd-form>
+
